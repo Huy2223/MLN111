@@ -1,0 +1,296 @@
+/* ════════════════════════════════════════════
+   ScrollPairs — pair rows, inline content
+   · Framer Motion handles entry + photo hover
+   · motion.div IS the grid cell (no extra wrapper)
+   · order swap for even rows
+   ════════════════════════════════════════════ */
+
+.scroll-pairs { width: 100%; }
+
+/* ── Article row ──────────────────────── */
+.pr {
+  display: grid;
+  border-top: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.pr--odd  { grid-template-columns: 36% 64%; }
+.pr--even { grid-template-columns: 64% 36%; }
+
+/* Swap visual to right col for even rows */
+.pr--even .pr-vis     { order: 2; }
+.pr--even .pr-content { order: 1; }
+
+/* ── Visual column ────────────────────── */
+.pr-vis {
+  position: relative;
+  overflow: hidden;
+  min-height: 680px;
+}
+
+/* ── Photo stack ──────────────────────── */
+.pr-photo-stack {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  background: var(--border);    /* hairline between photos */
+  gap: 1px;
+}
+
+.pr-photo-slot {
+  position: relative;
+  overflow: hidden;
+  will-change: transform;
+}
+
+.pr-photo-slot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  pointer-events: none;
+  display: block;
+  filter: grayscale(52%) contrast(1.06) brightness(0.80);
+  transition: filter 200ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pr-photo-slot:hover img {
+    filter: grayscale(0%) contrast(1.08) brightness(0.92);
+    transition: filter 500ms ease;
+  }
+}
+
+/* Name plate */
+.pr-photo-plate {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 32px 18px 14px;
+  background: linear-gradient(to top, rgba(7,7,14,0.9) 0%, transparent 100%);
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.pr-photo-plate-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(18px, 2vw, 28px);
+  font-weight: 700;
+  color: #fff;
+}
+
+.pr-photo-plate-years {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  opacity: 0.72;
+}
+
+/* ── Art stack (no photos) ────────────── */
+.pr-art-stack {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
+
+.pr-art-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.pr-art-slot:last-child { border-bottom: none; }
+
+.pr-art-portrait {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid;
+  padding: 18px 28px;
+  opacity: 0.8;
+  transition: opacity 300ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pr-art-slot:hover .pr-art-portrait {
+    opacity: 1;
+    transition: opacity 500ms ease;
+  }
+}
+
+.pr-art-initial {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(40px, 5.5vw, 80px);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.pr-art-label {
+  font-size: 8.5px;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+}
+
+.pr-art-years {
+  font-size: 8.5px;
+  letter-spacing: 0.15em;
+  opacity: 0.5;
+}
+
+/* ── Gradient edge ────────────────────── */
+.pr-vis-fade {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 36%;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.pr-vis-fade--left  {
+  right: 0;
+  background: linear-gradient(to right, transparent 0%, var(--bg) 100%);
+}
+
+.pr-vis-fade--right {
+  left: 0;
+  background: linear-gradient(to left, transparent 0%, var(--bg) 100%);
+}
+
+/* ── Content column ───────────────────── */
+.pr-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 16px;
+  padding: 64px 56px 72px;
+}
+
+.pr--odd  .pr-content { padding-left: 44px;  padding-right: 64px; }
+.pr--even .pr-content { padding-left: 64px;  padding-right: 44px; }
+
+/* School label */
+.pr-school {
+  font-size: 13px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* Pair title */
+.pr-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 3.6vw, 52px);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-top: -2px;
+}
+
+/* Philosopher list */
+.pr-figs { display: flex; flex-direction: column; gap: 5px; }
+
+.pr-fig-row {
+  display: flex;
+  align-items: baseline;
+  gap: 11px;
+}
+
+.pr-fig-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.pr-fig-years {
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  color: var(--text-dim);
+}
+
+/* Tagline */
+.pr-tagline {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text-dim);
+  max-width: 46ch;
+  border-left: 2px solid var(--gold-dark);
+  padding-left: 14px;
+  margin-top: 2px;
+}
+
+/* ── Inline body ──────────────────────── */
+.pr-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  margin-top: 4px;
+}
+
+.pr-body h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 6px;
+}
+
+.pr-body p {
+  font-size: 16px;
+  line-height: 1.84;
+  color: var(--text-dim);
+}
+
+.pr-body strong { color: var(--text); font-weight: 500; }
+.pr-body em     { color: var(--text); font-style: italic; }
+
+.pr-body blockquote {
+  margin: 2px 0;
+  padding: 14px 18px 14px 20px;
+  border-left: 2px solid var(--gold-dark);
+  background: rgba(201,168,76,0.04);
+  font-size: 14.5px;
+  line-height: 1.78;
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.pr-body cite {
+  display: block;
+  margin-top: 7px;
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  color: var(--gold-dark);
+  font-style: normal;
+}
+
+/* ── Mobile ───────────────────────────── */
+@media (max-width: 800px) {
+  .pr {
+    grid-template-columns: 1fr !important;
+  }
+
+  .pr-vis,
+  .pr-content       { order: unset !important; }
+  .pr-vis           { min-height: 56vw; }
+  .pr-vis-fade      { display: none; }
+  .pr-content       { padding: 32px 20px 48px !important; }
+  .pr-tagline       { max-width: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pr-photo-slot img { filter: grayscale(30%) brightness(0.88) !important; }
+}

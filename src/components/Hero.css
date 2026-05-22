@@ -1,0 +1,140 @@
+/* ── Hero ───────────────────────────────────────────── */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 560px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: -5%;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 38%, rgba(130,90,20,0.13) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 35% at 18% 78%, rgba(80,15,15,0.16) 0%, transparent 55%),
+    radial-gradient(ellipse 45% 30% at 82% 72%, rgba(15,25,70,0.14) 0%, transparent 55%),
+    linear-gradient(180deg, #07070e 0%, #0c0c1c 50%, #07070e 100%);
+  transition: transform 0.8s var(--ease-out);
+  will-change: transform;
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 80% at center, black 20%, transparent 70%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 0 24px;
+}
+
+.hero-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 28px;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: heroRise 600ms var(--ease-out) 200ms forwards;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(52px, 9vw, 104px);
+  font-weight: 900;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  opacity: 0;
+  transform: translateY(22px);
+  animation: heroRise 750ms var(--ease-out) 350ms forwards;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--gold);
+  display: block;
+}
+
+.hero-sub {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(14px, 2vw, 19px);
+  font-style: italic;
+  color: var(--text-dim);
+  margin-top: 22px;
+  margin-bottom: 44px;
+  opacity: 0;
+  transform: translateY(14px);
+  animation: heroRise 700ms var(--ease-out) 520ms forwards;
+}
+
+.hero-question {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid var(--border);
+  padding: 13px 28px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  opacity: 0;
+  transform: translateY(10px);
+  animation: heroRise 600ms var(--ease-out) 680ms forwards;
+}
+
+.hero-question::before,
+.hero-question::after {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: var(--gold-dark);
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 38px;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  animation: heroRise 500ms var(--ease-out) 1000ms forwards;
+}
+
+.scroll-hint span {
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.scroll-bar {
+  width: 1px;
+  height: 42px;
+  background: linear-gradient(to bottom, var(--gold-dark), transparent);
+  transform-origin: top;
+  animation: scrollBeat 2.2s ease-in-out 1.4s infinite;
+}
+
+@keyframes heroRise {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scrollBeat {
+  0%, 100% { opacity: 0.25; transform: scaleY(1); }
+  50%       { opacity: 1;    transform: scaleY(1.25); }
+}

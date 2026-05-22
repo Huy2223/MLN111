@@ -1,0 +1,237 @@
+/* ── Card ────────────────────────────────────────────── */
+.card {
+  position: relative;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+
+  /* entry state */
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity    500ms var(--ease-out),
+    transform  500ms var(--ease-out),
+    border-color 220ms ease,
+    box-shadow   220ms ease;
+}
+
+.card--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card--hero {
+  grid-column: span 2;
+}
+
+@media (max-width: 720px) {
+  .card--hero { grid-column: span 1; }
+}
+
+/* hover — only on real pointer devices */
+@media (hover: hover) and (pointer: fine) {
+  .card--visible:hover {
+    border-color: var(--border-h);
+    box-shadow: 0 0 48px rgba(201,168,76,0.06), 0 4px 32px rgba(0,0,0,0.4);
+  }
+
+  .card--visible:hover .card-inner {
+    transform: translateY(-4px);
+  }
+
+  .card--visible:hover .fig:first-child { transform: translateX(-5px); }
+  .card--visible:hover .fig:last-child  { transform: translateX(5px); }
+
+  .card--visible:hover .card-cta {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .card--visible:hover .cta-line { width: 36px; }
+}
+
+/* press feedback — 100ms, feels instant */
+.card:active .card-inner {
+  transform: scale(0.97) !important;
+  transition-duration: 100ms !important;
+}
+
+/* ambient glow */
+.card-glow {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+
+.card:hover .card-glow { opacity: 1; }
+
+/* ── Card inner: handles hover transform independently ── */
+.card-inner {
+  position: relative;
+  z-index: 1;
+  padding: 32px;
+  transition: transform 200ms var(--ease-out);
+}
+
+/* Hero layout: side-by-side */
+.card--hero .card-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .card--hero .card-inner { grid-template-columns: 1fr; }
+}
+
+/* ── Card left (school + portraits) ─────────────────── */
+.card-left { display: flex; flex-direction: column; }
+
+.card-school {
+  font-size: 9px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+/* ── Portraits ───────────────────────────────────────── */
+.portraits {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 22px;
+}
+
+.card--hero .portraits { margin-bottom: 0; }
+
+.fig {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: transform 220ms var(--ease-out);
+}
+
+.fig-img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.055);
+  overflow: hidden;
+  position: relative;
+}
+
+/* gradient overlay at bottom of portrait */
+.fig-img::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 50%;
+  background: linear-gradient(to top, rgba(7,7,14,0.65) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.fig-img img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  filter: grayscale(40%) contrast(1.08);
+  transition: filter 280ms ease, transform 280ms var(--ease-out);
+  z-index: 1;
+}
+
+.card:hover .fig-img img {
+  filter: grayscale(0%) contrast(1.08);
+  transform: scale(1.04);
+}
+
+/* placeholder letter shown when image absent */
+.fig-ph {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.1);
+  z-index: 0;
+}
+
+.fig-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.fig-years {
+  font-size: 10px;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+/* ampersand between figures */
+.amp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-style: italic;
+  color: var(--gold-dark);
+  flex-shrink: 0;
+  width: 28px;
+  margin-top: 40px; /* visual center between portraits */
+}
+
+/* ── Card right (text) ───────────────────────────────── */
+.card-right { display: flex; flex-direction: column; }
+
+.card-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.card-tagline {
+  font-size: 13px;
+  line-height: 1.78;
+  color: var(--text-dim);
+}
+
+/* CTA — revealed on hover */
+.card-cta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 200ms ease, transform 200ms var(--ease-out);
+}
+
+.cta-line {
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: var(--gold);
+  transition: width 220ms var(--ease-out);
+}

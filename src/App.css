@@ -1,0 +1,12 @@
+/* ── Footer ─────────────────────────────────────────── */
+.site-footer {
+  text-align: center;
+  padding: 56px 24px;
+  border-top: 1px solid var(--border);
+}
+
+.site-footer p {
+  font-size: 11px;
+  color: var(--text-dim);
+  letter-spacing: 0.12em;
+}

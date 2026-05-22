@@ -1,0 +1,10 @@
+node_modules
+dist
+.DS_Store
+*.local
+
+# Vite cache
+.vite
+
+# Dev tool daemon (VS Code extension / local service)
+.vexp

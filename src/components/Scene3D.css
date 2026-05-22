@@ -1,0 +1,305 @@
+/* ══ Scene3D — scroll-driven 3-D transition ══════════
+   · .s3d-room      — tall scroll runway (240vh)
+   · .s3d-sticky    — viewport-height sticky stage
+   · .s3d-card      — the image panel with rotateX
+   · .s3d-caption   — text overlay, appears once flat
+   · .s3d-vignette  — top/bottom edge fade to --bg
+   ═════════════════════════════════════════════════════ */
+
+.s3d-room {
+  height: 240vh;
+  position: relative;
+  z-index: 0;
+  /* thin separator from the pair above */
+  border-top: 1px solid var(--border);
+}
+
+.s3d-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+}
+
+/* ── Ambient gold glow behind card ─────────── */
+.s3d-ambient {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 70% 45% at 50% 55%,
+    rgba(201, 168, 76, 0.07) 0%,
+    transparent 72%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Perspective container ──────────────────── */
+.s3d-perspective {
+  perspective: 980px;
+  perspective-origin: 50% 40%;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+}
+
+/* ── Image card ─────────────────────────────── */
+.s3d-card {
+  width: min(80vw, 1060px);
+  height: min(56vh, 620px);
+  position: relative;
+  /* rotate from near-bottom edge → "rising from ground plane" */
+  transform-origin: 50% 82%;
+  will-change: transform, opacity;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(201, 168, 76, 0.20),
+    0 48px 140px rgba(0, 0, 0, 0.88),
+    0 16px 52px  rgba(0, 0, 0, 0.55);
+}
+
+.s3d-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  pointer-events: none;
+  filter: brightness(0.80) contrast(1.05) saturate(0.92);
+}
+
+.s3d-card-tint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(7, 7, 14, 0.28) 0%,
+    rgba(7, 7, 14, 0.04) 42%,
+    rgba(7, 7, 14, 0.60) 100%
+  );
+  z-index: 1;
+}
+
+/* ── Gold scan line that sweeps across on landing ── */
+.s3d-scan {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: 3px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(201, 168, 76, 0.55) 30%,
+    rgba(201, 168, 76, 0.80) 50%,
+    rgba(201, 168, 76, 0.55) 70%,
+    transparent 100%
+  );
+  filter: blur(2px);
+  z-index: 3;
+  will-change: transform, opacity;
+}
+
+/* ── Caption ────────────────────────────────── */
+.s3d-caption {
+  position: absolute;
+  bottom: 13vh;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.s3d-eyebrow {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.46em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.82;
+}
+
+.s3d-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(34px, 5.4vw, 76px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  text-shadow: 0 6px 40px rgba(0, 0, 0, 0.65);
+  margin: 0;
+}
+
+.s3d-sub {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+  margin-top: 2px;
+}
+
+/* ── Top + bottom vignette blending into --bg ─ */
+.s3d-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(7, 7, 14, 0.80) 0%, transparent 20%),
+    linear-gradient(to top,    rgba(7, 7, 14, 0.88) 0%, transparent 28%);
+  pointer-events: none;
+  z-index: 7;
+}
+
+/* ── Door-swing / flip variant ─────────────── */
+.s3d-room--flip { height: 200vh; }
+
+/* Perspective from left-of-center so swing feels natural */
+.s3d-perspective--flip {
+  perspective: 1100px;
+  perspective-origin: 28% 50%;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+}
+
+.s3d-card--flip {
+  transform-origin: 50% 50%;   /* center flip, symmetric */
+  width: min(80vw, 1060px);
+  height: min(56vh, 620px);
+}
+
+/* Ambient glow shifted left for flip variant */
+.s3d-ambient--left {
+  background: radial-gradient(
+    ellipse 60% 45% at 30% 50%,
+    rgba(201, 168, 76, 0.07) 0%,
+    transparent 70%
+  ) !important;
+}
+
+/* Diagonal light streak (replaces horizontal scan) */
+.s3d-streak {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: 60px;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(201, 168, 76, 0.04) 30%,
+    rgba(255, 248, 220, 0.55) 50%,
+    rgba(201, 168, 76, 0.04) 70%,
+    transparent 100%
+  );
+  filter: blur(3px);
+  z-index: 3;
+  will-change: transform, opacity;
+  transform: skewX(-18deg);
+}
+
+/* ── Curtain card (flat variant) ────────────── */
+.s3d-curtain-card {
+  position: absolute;
+  inset: 8vh 10vw;
+  overflow: hidden;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #111115;
+  box-shadow:
+    0 0 0 1px rgba(201, 168, 76, 0.14),
+    0 32px 100px rgba(0, 0, 0, 0.80);
+}
+
+.s3d-curtain-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+  filter: brightness(0.88) contrast(1.02) saturate(0.85);
+  will-change: transform;
+}
+
+/* Flat variant: shorter scroll runway */
+.s3d-room--flat { height: 160vh; }
+
+/* ── Rack-focus variant ─────────────────────── */
+.s3d-room--focus { height: 210vh; }
+
+.s3d-perspective--focus {
+  perspective: 1200px;
+  perspective-origin: 50% 48%;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+}
+
+.s3d-focus-card {
+  width: min(78vw, 1020px);
+  height: min(54vh, 600px);
+  position: relative;
+  transform-origin: 50% 50%;
+  will-change: transform, filter, opacity;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(201, 168, 76, 0.16),
+    0 48px 130px rgba(0, 0, 0, 0.86);
+}
+
+.s3d-focus-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  pointer-events: none;
+  background: #0e0e14;
+}
+
+.s3d-ambient--center {
+  background: radial-gradient(
+    ellipse 55% 45% at 50% 50%,
+    rgba(201, 168, 76, 0.08) 0%,
+    transparent 68%
+  ) !important;
+}
+
+/* ── Mobile ─────────────────────────────────── */
+@media (max-width: 800px) {
+  .s3d-room { height: 190vh; }
+  .s3d-room--flat { height: 130vh; }
+
+  .s3d-card {
+    width: 90vw;
+    height: 52vw;
+  }
+
+  .s3d-heading { font-size: clamp(26px, 7vw, 44px); }
+  .s3d-caption { bottom: 10vh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .s3d-card   { will-change: auto; }
+  .s3d-scan   { display: none; }
+}

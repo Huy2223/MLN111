@@ -1,0 +1,35 @@
+/* ── Pairs section ───────────────────────────────────── */
+.pairs {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 80px 28px 120px;
+}
+
+.pairs-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.pairs-eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.pairs-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 700;
+}
+
+.pairs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 720px) {
+  .pairs-grid { grid-template-columns: 1fr; }
+}

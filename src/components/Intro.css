@@ -1,0 +1,62 @@
+/* ── Intro ───────────────────────────────────────────── */
+.intro {
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 96px 28px 80px;
+  text-align: center;
+}
+
+.eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.intro-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px, 3vw, 27px);
+  font-weight: 400;
+  line-height: 1.65;
+}
+
+.intro-headline strong {
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.intro-body {
+  margin-top: 22px;
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--text-dim);
+}
+
+.intro-body strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ── Ornament ────────────────────────────────────────── */
+.ornament {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 320px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.ornament-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.ornament-gem {
+  width: 5px;
+  height: 5px;
+  background: var(--gold-dark);
+  transform: rotate(45deg);
+}

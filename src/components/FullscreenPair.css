@@ -1,0 +1,389 @@
+/* ════════════════════════════════════════════
+   Fullscreen Pair — Thorgal-style
+   Emil Design principles:
+   · Entry via @keyframes (separate from transition)
+   · Hover: asymmetric — slow in (380ms), fast out (180ms)
+   · Only animate transform + opacity + filter (GPU)
+   · Hover gated: @media (hover: hover) and (pointer: fine)
+   · Press: scale(0.98), 100ms
+   · prefers-reduced-motion handled at bottom
+   ════════════════════════════════════════════ */
+
+/* ── Shell ───────────────────────────────── */
+.fs {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  min-height: 500px;
+  display: flex;
+  overflow: hidden;
+  background: var(--bg);
+  user-select: none;
+}
+
+/* ── Header ──────────────────────────────── */
+.fs-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 44px 24px 0;
+  pointer-events: none;
+  /* entry */
+  opacity: 0;
+  transform: translateY(-12px);
+}
+
+.fs--entering .fs-header,
+.fs--ready    .fs-header {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 700ms var(--ease-out) 500ms,
+              transform 700ms var(--ease-out) 500ms;
+}
+
+.fs-school {
+  font-size: 9px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.fs-pairtitle {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(18px, 2.5vw, 30px);
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+/* ── Sides ───────────────────────────────── */
+.fs-side {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  cursor: pointer;
+  outline: none;
+
+  /* hidden until entry fires */
+  opacity: 0;
+
+  /* interactive transitions (flex expand/contract, opacity dim) */
+  transition:
+    opacity 250ms ease,
+    flex    420ms var(--ease-out);
+}
+
+/* entry: slide from sides — fired via @keyframes so it doesn't
+   interfere with the hover transition defined above */
+.fs--entering .fs-side--left,
+.fs--ready    .fs-side--left {
+  animation: fsSlideLeft 750ms var(--ease-out) 100ms both;
+}
+
+.fs--entering .fs-side--right,
+.fs--ready    .fs-side--right {
+  animation: fsSlideRight 750ms var(--ease-out) 220ms both;
+}
+
+@keyframes fsSlideLeft {
+  from { opacity: 0; transform: translateX(-28px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fsSlideRight {
+  from { opacity: 0; transform: translateX(28px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* hover expand — only after entry is done + only real pointer */
+@media (hover: hover) and (pointer: fine) {
+  .fs--ready .fs-side:not(.fs-side--dim):hover { flex: 1.32; }
+}
+
+/* dim sibling */
+.fs-side--dim {
+  opacity: 0.38 !important;
+  flex: 0.68 !important;
+}
+
+/* press feedback — 100ms, feels instant */
+.fs-side:active { transform: scale(0.99); transition-duration: 100ms !important; }
+
+/* ── Image outer (filter layer, GPU composited) ──── */
+.fs-img-outer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+
+  /* hover-OFF: fast return */
+  filter: grayscale(72%) contrast(1.06) brightness(0.78);
+  transition: filter 180ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  /* hover-ON: slower, more deliberate */
+  .fs--ready .fs-side:hover .fs-img-outer {
+    filter: grayscale(0%) contrast(1.08) brightness(1.02);
+    transition: filter 400ms ease;
+  }
+}
+
+/* ── Image inner (parallax layer — JS sets transform directly) ── */
+.fs-img-inner {
+  position: absolute;
+  inset: -7%; /* padding for parallax movement */
+
+  /* hover-OFF: spring back slowly */
+  transition: transform 700ms var(--ease-out);
+}
+
+/* When mouse is tracked (JS sets transform), suppress the slow return
+   transition to avoid lag during fast mouse movement */
+.fs-img-inner.is-tracking {
+  transition: none;
+}
+
+.fs-img-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  pointer-events: none;
+}
+
+/* ── Vignette gradient ───────────────────── */
+.fs-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top,
+      rgba(7,7,14,0.95) 0%,
+      rgba(7,7,14,0.18) 48%,
+      rgba(7,7,14,0.55) 100%
+    );
+  pointer-events: none;
+
+  /* hover-OFF: darken fast */
+  opacity: 1;
+  transition: opacity 180ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  /* hover-ON: lighten overlay so image shines through */
+  .fs--ready .fs-side:hover .fs-vignette {
+    opacity: 0.72;
+    transition: opacity 400ms ease;
+  }
+}
+
+/* ── Info text ───────────────────────────── */
+.fs-info {
+  position: absolute;
+  bottom: 56px;
+  left: 0;
+  right: 0;
+  padding: 0 48px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.fs-info--left  { text-align: left; }
+.fs-info--right { text-align: right; }
+
+/* name */
+.fs-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 4.5vw, 62px);
+  font-weight: 900;
+  line-height: 1;
+  color: #fff;
+  letter-spacing: -0.01em;
+
+  /* hover-OFF: settle fast */
+  transform: translateY(0);
+  transition: transform 180ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  /* hover-ON: name floats up — slow, deliberate */
+  .fs--ready .fs-side:hover .fs-name {
+    transform: translateY(-10px);
+    transition: transform 400ms var(--ease-out);
+  }
+}
+
+/* years */
+.fs-years {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--gold);
+  margin-top: 10px;
+  opacity: 0.65;
+
+  /* hover-OFF */
+  transition: opacity 180ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .fs--ready .fs-side:hover .fs-years {
+    opacity: 1;
+    transition: opacity 350ms ease 60ms;
+  }
+}
+
+/* CTA — starts hidden, reveals with clip-path wipe (Emil pattern) */
+.fs-cta {
+  display: block;
+  margin-top: 16px;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+
+  /* hidden: clipped */
+  clip-path: inset(0 100% 0 0);
+  /* hover-OFF: hide fast */
+  transition: clip-path 160ms ease;
+}
+
+.fs-info--right .fs-cta { clip-path: inset(0 0 0 100%); }
+
+@media (hover: hover) and (pointer: fine) {
+  /* hover-ON: wipe in from edge — slow reveal */
+  .fs--ready .fs-side:hover .fs-info--left  .fs-cta {
+    clip-path: inset(0 0% 0 0);
+    transition: clip-path 380ms var(--ease-out) 120ms;
+  }
+  .fs--ready .fs-side:hover .fs-info--right .fs-cta {
+    clip-path: inset(0 0 0 0%);
+    transition: clip-path 380ms var(--ease-out) 120ms;
+  }
+}
+
+/* ── Divider ─────────────────────────────── */
+.fs-divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  z-index: 15;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(201,168,76,0.25) 20%,
+    rgba(201,168,76,0.55) 50%,
+    rgba(201,168,76,0.25) 80%,
+    transparent 100%
+  );
+
+  /* entry: grow from center */
+  transform: scaleY(0);
+  transform-origin: center;
+}
+
+.fs--entering .fs-divider,
+.fs--ready    .fs-divider {
+  transform: scaleY(1);
+  transition: transform 900ms var(--ease-out) 600ms;
+}
+
+/* ── Bottom hint ─────────────────────────── */
+.fs-bottom {
+  position: absolute;
+  bottom: 22px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 20;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.fs--entering .fs-bottom,
+.fs--ready    .fs-bottom {
+  opacity: 1;
+  transition: opacity 600ms ease 1100ms;
+}
+
+.fs-hint {
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+}
+
+/* ── Mobile ──────────────────────────────── */
+@media (max-width: 600px) {
+  .fs {
+    flex-direction: column;
+    height: auto;
+    min-height: 100svh;
+  }
+
+  .fs-side { flex: none !important; height: 50svh; }
+  .fs-side--dim { opacity: 0.55 !important; }
+
+  .fs-divider {
+    top: 50%;
+    bottom: auto;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,168,76,0.5), transparent);
+    transform: scaleX(0);
+    transform-origin: center;
+  }
+
+  .fs--entering .fs-divider,
+  .fs--ready    .fs-divider {
+    transform: scaleX(1);
+    transition: transform 700ms var(--ease-out) 600ms;
+  }
+
+  .fs-info { bottom: 28px; padding: 0 24px; }
+  .fs-info--right { text-align: left; }
+
+  .fs-name  { font-size: clamp(28px, 7vw, 40px); }
+  .fs-header { padding-top: 24px; }
+}
+
+/* ── Reduced motion ──────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .fs-side,
+  .fs-img-outer,
+  .fs-img-inner,
+  .fs-vignette,
+  .fs-name,
+  .fs-years,
+  .fs-cta,
+  .fs-divider,
+  .fs-header,
+  .fs-bottom {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .fs-side   { opacity: 1 !important; }
+  .fs-header { opacity: 1 !important; }
+  .fs-bottom { opacity: 1 !important; }
+  .fs-cta    { clip-path: none !important; }
+
+  .fs-img-outer {
+    filter: grayscale(40%) contrast(1.06) brightness(0.9) !important;
+  }
+}
