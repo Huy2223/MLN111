@@ -106,12 +106,13 @@ function Scene3DFlip({ roomRef, scrollYProgress, reduced, src, lines, eyebrow, s
    Slight rotateX tilt adds 3-D depth during the pull.
    ─────────────────────────────────────────────────── */
 function Scene3DFocus({ roomRef, scrollYProgress, reduced, src, lines, eyebrow, sub }) {
-  const scale       = useTransform(scrollYProgress, [0.04, 0.46, 0.82], reduced ? [1,1,1] : [1.88, 1.0, 1.04])
-  const rotateX     = useTransform(scrollYProgress, [0.04, 0.46],        reduced ? [0,0]   : [12, 0])
-  const filter      = useTransform(scrollYProgress, [0.04, 0.46],        reduced ? ['blur(0px)','blur(0px)'] : ['blur(18px)', 'blur(0px)'])
-  const cardOpacity = useTransform(scrollYProgress, [0.04, 0.20, 0.74, 0.90], [0, 1, 1, 0])
-  const capOpacity  = useTransform(scrollYProgress, [0.38, 0.56, 0.74, 0.90], [0, 1, 1, 0])
-  const capY        = useTransform(scrollYProgress, [0.38, 0.58], reduced ? ['0px','0px'] : ['20px', '0px'])
+  const scale        = useTransform(scrollYProgress, [0.04, 0.46, 0.82], reduced ? [1,1,1] : [1.88, 1.0, 1.04])
+  const rotateX      = useTransform(scrollYProgress, [0.04, 0.46],        reduced ? [0,0]   : [12, 0])
+  const cardOpacity  = useTransform(scrollYProgress, [0.04, 0.20, 0.74, 0.90], [0, 1, 1, 0])
+  /* Blur veil: static backdrop-filter, only opacity changes → compositor-only, no repaint */
+  const veilOpacity  = useTransform(scrollYProgress, [0.04, 0.46], reduced ? [0,0] : [1, 0])
+  const capOpacity   = useTransform(scrollYProgress, [0.38, 0.56, 0.74, 0.90], [0, 1, 1, 0])
+  const capY         = useTransform(scrollYProgress, [0.38, 0.58], reduced ? ['0px','0px'] : ['20px', '0px'])
 
   return (
     <div ref={roomRef} className="s3d-room s3d-room--focus">
@@ -120,10 +121,12 @@ function Scene3DFocus({ roomRef, scrollYProgress, reduced, src, lines, eyebrow, 
         <div className="s3d-perspective s3d-perspective--focus">
           <motion.div
             className="s3d-focus-card"
-            style={{ scale, rotateX, filter, opacity: cardOpacity }}
+            style={{ scale, rotateX, opacity: cardOpacity }}
           >
             <img src={src} alt="" aria-hidden="true" draggable="false" />
             <div className="s3d-card-tint" />
+            {/* backdrop-filter stays constant — only opacity animates (GPU compositor) */}
+            {!reduced && <motion.div className="s3d-blur-veil" style={{ opacity: veilOpacity }} />}
           </motion.div>
         </div>
         <Caption lines={lines} eyebrow={eyebrow} sub={sub} opacity={capOpacity} y={capY} />

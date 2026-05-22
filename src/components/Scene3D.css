@@ -22,6 +22,9 @@
   display: grid;
   place-items: center;
   background: var(--bg);
+  /* Promote to own compositor layer — isolates paint from rest of page */
+  will-change: transform;
+  contain: layout paint;
 }
 
 /* ── Ambient gold glow behind card ─────────── */
@@ -257,12 +260,24 @@
   height: min(54vh, 600px);
   position: relative;
   transform-origin: 50% 50%;
-  will-change: transform, filter, opacity;
+  will-change: transform, opacity;
   border-radius: 2px;
   overflow: hidden;
   box-shadow:
     0 0 0 1px rgba(201, 168, 76, 0.16),
     0 48px 130px rgba(0, 0, 0, 0.86);
+}
+
+/* Blur veil: backdrop-filter is static (no animation cost),
+   only opacity changes → runs entirely on GPU compositor */
+.s3d-blur-veil {
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 4;
+  will-change: opacity;
+  pointer-events: none;
 }
 
 .s3d-focus-card img {
