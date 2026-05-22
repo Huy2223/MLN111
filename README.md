@@ -1,85 +1,39 @@
-# MLN111 — Landing Page Triết Học Mác–Lênin
+# MLN111 — Lý Luận Nhận Thức
 
-Landing page tương tác cho **Phần III: Lý Luận Nhận Thức** (giáo trình Triết học Mác–Lênin), trình bày 6 trường phái triết học qua scroll animation và 3D cinematic transitions.
+> *Con người có thể nhận thức được thế giới không?*
 
----
-
-## Demo
-
-> Chạy local: `npm run dev` → `http://localhost:5173`
+Đây là câu hỏi trung tâm của **Phần III: Lý Luận Nhận Thức** trong giáo trình Triết học Mác–Lênin — và cũng là câu hỏi mà dự án này cố gắng trình bày.
 
 ---
 
-## Tính năng
+## Về dự án
 
-- **4 Scene3D transitions** xen giữa các trường phái, mỗi cái một kiểu animation khác nhau:
-  - `rise` — tấm bảng nằm nghiêng 3D (rotateX) rồi dựng đứng về phía viewer
-  - `curtain` — màn hình kéo xuống lộ ảnh (clip-path reveal)
-  - `flip` — cánh cửa xoay từ bên trái vào (rotateY door-swing)
-  - `focus` — rack focus: ảnh mờ + phóng to rồi lấy nét kéo về
+Thay vì một bài thuyết trình hay tài liệu tĩnh, đây là một **trang web tương tác** cho phép người xem *lướt qua lịch sử triết học* — từ những trường phái hoài nghi, duy tâm, cho đến chủ nghĩa duy vật biện chứng của Marx và Lenin.
 
-- **Scroll-driven animations** toàn trang với Framer Motion `useScroll` + `useTransform`
-- **6 cặp triết gia** hiển thị inline với layout xen kẽ trái/phải
-- **Ảnh thật** cho Marx, Lenin, Berkeley, Ernst Mach — các triết gia còn lại dùng art portrait
-- **Intro section** với blur-dissolve headline, clip-path eyebrow wipe, ornament draw animation
-- Responsive mobile, `prefers-reduced-motion` support
+Mỗi trường phái được trình bày như một chương trong hành trình đó: có bối cảnh, có luận điểm cốt lõi, có hạn chế — và quan trọng hơn, có mối liên hệ với nhau theo một trật tự logic.
 
 ---
 
-## Các trường phái (thứ tự scroll)
+## Nội dung
 
-| # | Trường phái | Đại diện |
-|---|---|---|
-| 1 | Chủ nghĩa duy tâm chủ quan | Berkeley & Mach |
-| 2 | Chủ nghĩa duy tâm khách quan | Plato & Hegel |
-| 3 | Thuyết hoài nghi | Descartes & Hume |
-| 4 | Thuyết không thể biết | Immanuel Kant |
-| 5 | Chủ nghĩa duy vật trước Marx | Feuerbach & Holbach |
-| 6 | Chủ nghĩa duy vật biện chứng | Marx & Lenin |
+Sáu trường phái được trình bày theo thứ tự từ "sai" đến "đúng" theo quan điểm duy vật biện chứng:
 
----
-
-## Stack
-
-- **React 18** + **Vite 5**
-- **Framer Motion v12** — scroll animations, 3D transforms, whileInView
-- CSS thuần — không có UI library
-- Font: Playfair Display (serif) + Inter (sans)
+1. **Berkeley & Mach** — Chủ nghĩa duy tâm chủ quan: sự vật chỉ là tổ hợp cảm giác
+2. **Plato & Hegel** — Chủ nghĩa duy tâm khách quan: nhận thức là hồi tưởng và tinh thần thế giới
+3. **Descartes & Hume** — Thuyết hoài nghi: nghi ngờ cả khả năng nhận thức lẫn sự tồn tại khách quan
+4. **Immanuel Kant** — Thuyết không thể biết: "vật tự nó" mãi nằm ngoài tầm với của nhận thức
+5. **Feuerbach & Holbach** — Duy vật trước Marx: đúng hướng nhưng chưa thấy vai trò của thực tiễn
+6. **Marx & Lenin** — Chủ nghĩa duy vật biện chứng: nhận thức gắn liền với thực tiễn và biến đổi thế giới
 
 ---
 
-## Cấu trúc
+## Trọng tâm
 
-```
-src/
-├── data/pairs.jsx          — 6 cặp triết gia, nội dung tiếng Việt
-├── components/
-│   ├── Hero.jsx            — Full-viewport hero section
-│   ├── Intro.jsx           — Intro text với blur-fade animation
-│   ├── ScrollPairs.jsx     — Layout cuộn xen kẽ 6 cặp
-│   ├── Scene3D.jsx         — 4 variants 3D transition (rise/curtain/flip/focus)
-│   └── Modal.jsx           — Modal chi tiết
-└── hooks/useInView.js      — IntersectionObserver hook
+Luận điểm xuyên suốt toàn bộ nội dung:
 
-public/images/              — Ảnh triết gia + scene backgrounds
-```
+> Tri thức không chỉ phản ánh thế giới — mà là nền tảng để biến đổi nó.  
+> Thực tiễn là thước đo duy nhất của chân lý.
 
 ---
 
-## Cài đặt & chạy
-
-```bash
-npm install
-npm run dev
-```
-
-```bash
-npm run build   # production build → dist/
-```
-
----
-
-## Môn học
-
-**Triết học Mác–Lênin — MLN111**  
-FPT University · Semester Summer 2026
+**Triết học Mác–Lênin · MLN111 · FPT University · Summer 2026**
