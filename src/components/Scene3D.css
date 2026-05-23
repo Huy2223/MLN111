@@ -302,16 +302,35 @@
 
 /* ── Mobile ─────────────────────────────────── */
 @media (max-width: 800px) {
-  .s3d-room { height: 190vh; }
-  .s3d-room--flat { height: 130vh; }
+  .s3d-room        { height: 180vh; }
+  .s3d-room--flat  { height: 130vh; }
+  .s3d-room--flip  { height: 160vh; }
+  .s3d-room--focus { height: 170vh; }
 
-  .s3d-card {
-    width: 90vw;
-    height: 52vw;
+  .s3d-card,
+  .s3d-card--flip {
+    width: 92vw;
+    height: 56vw;
   }
 
-  .s3d-heading { font-size: clamp(26px, 7vw, 44px); }
-  .s3d-caption { bottom: 10vh; }
+  .s3d-focus-card {
+    width: 92vw;
+    height: 56vw;
+  }
+
+  /* Curtain card: less inset on mobile */
+  .s3d-curtain-card {
+    inset: 6vh 4vw;
+  }
+
+  .s3d-heading {
+    font-size: clamp(24px, 6.5vw, 40px);
+    line-height: 1.1;
+  }
+
+  .s3d-eyebrow { font-size: 9px; letter-spacing: 0.3em; }
+  .s3d-sub     { font-size: 10px; letter-spacing: 0.22em; }
+  .s3d-caption { bottom: 8vh; gap: 7px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

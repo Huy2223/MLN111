@@ -1,24 +1,38 @@
 import { useState } from 'react'
+import NavBar from './components/NavBar'
 import Hero from './components/Hero'
 import Intro from './components/Intro'
 import ScrollPairs from './components/ScrollPairs'
-import Modal from './components/Modal'
+import VideoPage from './components/VideoPage'
+import AIUsage from './components/AIUsage'
 import './App.css'
 
 export default function App() {
-  const [activeId, setActiveId] = useState(null)
+  const [view, setView] = useState('home')
 
   return (
     <>
-      <Hero />
-      <Intro />
-      <ScrollPairs />
+      <NavBar view={view} setView={setView} />
 
-      <footer className="site-footer">
-        <p>Triết học Mác–Lênin · Phần III · Lý Luận Nhận Thức</p>
-      </footer>
+      {view === 'home' && (
+        <>
+          <Hero />
+          <Intro />
+          <ScrollPairs />
+          <footer className="site-footer">
+            <div className="site-footer-ornament">
+              <div className="site-footer-line" />
+              <div className="site-footer-gem" />
+              <div className="site-footer-line" />
+            </div>
+            <p className="site-footer-label">Triết học Mác–Lênin · Phần III · Lý Luận Nhận Thức</p>
+            <p className="site-footer-sub">FPT University · MLN111 · Summer 2026</p>
+          </footer>
+        </>
+      )}
 
-      <Modal activeId={activeId} onClose={() => setActiveId(null)} />
+      {view === 'video'    && <VideoPage />}
+      {view === 'ai-usage' && <AIUsage />}
     </>
   )
 }

@@ -11,7 +11,8 @@
 .pr {
   display: grid;
   border-top: 1px solid var(--border);
-  overflow: hidden;
+  /* No overflow:hidden here — .pr-vis already clips photos,
+     and hiding here clips the slide-in entry animation */
 }
 
 .pr--odd  { grid-template-columns: 36% 64%; }
@@ -134,13 +135,13 @@
 }
 
 .pr-art-label {
-  font-size: 8.5px;
-  letter-spacing: 0.36em;
+  font-size: 11px;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
 }
 
 .pr-art-years {
-  font-size: 8.5px;
+  font-size: 11px;
   letter-spacing: 0.15em;
   opacity: 0.5;
 }
@@ -223,9 +224,11 @@
   line-height: 1.8;
   color: var(--text-dim);
   max-width: 46ch;
-  border-left: 2px solid var(--gold-dark);
-  padding-left: 14px;
+  font-style: italic;
   margin-top: 2px;
+  padding: 10px 16px;
+  background: rgba(201, 168, 76, 0.045);
+  border-radius: 1px;
 }
 
 /* ── Inline body ──────────────────────── */
@@ -271,7 +274,7 @@
 .pr-body cite {
   display: block;
   margin-top: 7px;
-  font-size: 9.5px;
+  font-size: 11px;
   letter-spacing: 0.1em;
   color: var(--gold-dark);
   font-style: normal;
@@ -284,11 +287,17 @@
   }
 
   .pr-vis,
-  .pr-content       { order: unset !important; }
-  .pr-vis           { min-height: 56vw; }
-  .pr-vis-fade      { display: none; }
-  .pr-content       { padding: 32px 20px 48px !important; }
-  .pr-tagline       { max-width: none; }
+  .pr-content         { order: unset !important; }
+  .pr-vis             { min-height: 62vw; }
+  .pr-vis-fade        { display: none; }
+  .pr-content         { padding: 28px 18px 44px !important; gap: 12px; }
+  .pr-tagline         { max-width: none; font-size: 14px; padding: 9px 13px; }
+  .pr-title           { font-size: clamp(26px, 7.5vw, 42px); }
+  .pr-school          { font-size: 11px; }
+  .pr-body p          { font-size: 15px; line-height: 1.78; }
+  .pr-body h3         { font-size: 11px; }
+  .pr-body blockquote { font-size: 13.5px; padding: 11px 14px 11px 16px; }
+  .pr-photo-plate-name { font-size: clamp(15px, 4vw, 22px); }
 }
 
 @media (prefers-reduced-motion: reduce) {

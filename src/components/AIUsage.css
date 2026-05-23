@@ -1,0 +1,165 @@
+/* ── AI Usage page ───────────────────────────────────── */
+.ai-page {
+  min-height: 100vh;
+  padding-top: 52px; /* nav height */
+}
+
+/* ── Header ────────────────────────────────────────── */
+.ai-header {
+  padding: 64px 48px 56px;
+  border-bottom: 1px solid var(--border);
+  max-width: 760px;
+}
+
+.ai-header-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.ai-header-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.05;
+  margin-bottom: 20px;
+}
+
+.ai-header-desc {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text-dim);
+  max-width: 58ch;
+}
+
+/* ── Section wrapper ───────────────────────────────── */
+.ai-section {
+  padding: 48px 48px 0;
+}
+
+.ai-section:last-child { padding-bottom: 80px; }
+
+.ai-section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+
+/* ── Table ─────────────────────────────────────────── */
+.ai-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
+.ai-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  min-width: 720px;
+}
+
+.ai-table thead tr {
+  background: rgba(201, 168, 76, 0.08);
+  border-bottom: 1px solid var(--border);
+}
+
+.ai-table th {
+  padding: 13px 16px;
+  text-align: left;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  white-space: nowrap;
+}
+
+.ai-table td {
+  padding: 16px 16px;
+  color: var(--text-dim);
+  line-height: 1.65;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.ai-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.ai-table tbody tr:hover td {
+  background: rgba(201, 168, 76, 0.025);
+}
+
+.ai-td-tool {
+  color: var(--gold) !important;
+  font-weight: 500;
+  white-space: nowrap;
+  min-width: 140px;
+}
+
+.ai-empty {
+  color: rgba(201, 168, 76, 0.2);
+}
+
+/* ── Principle cards ───────────────────────────────── */
+.ai-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+}
+
+.ai-card {
+  padding: 24px 22px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--bg-card);
+}
+
+.ai-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.ai-card-desc {
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--text-dim);
+}
+
+/* ── Integrity note ────────────────────────────────── */
+.ai-note {
+  margin-top: 48px;
+  padding: 18px 22px;
+  border-left: 2px solid var(--gold-dark);
+  background: rgba(201, 168, 76, 0.04);
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-dim);
+}
+
+.ai-note strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* ── Mobile ────────────────────────────────────────── */
+@media (max-width: 800px) {
+  .ai-header  { padding: 48px 20px 40px; }
+  .ai-section { padding: 36px 20px 0; }
+
+  .ai-cards {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 32px;
+  }
+}

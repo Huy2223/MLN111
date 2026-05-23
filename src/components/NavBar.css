@@ -1,0 +1,86 @@
+/* ── Site Nav ────────────────────────────────────────── */
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  background: rgba(7, 7, 14, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── Brand (click → home) ──────────────────────────── */
+.site-nav-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: none;
+}
+
+.site-nav-brand-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+}
+
+.site-nav-brand-sub {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* ── Tab buttons ───────────────────────────────────── */
+.site-nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.site-nav-tab {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 7px 18px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--text-dim);
+  border-radius: 2px;
+  transition: color 200ms ease, background 200ms ease;
+}
+
+.site-nav-tab:hover {
+  color: var(--text);
+  background: rgba(201, 168, 76, 0.06);
+}
+
+.site-nav-tab--active {
+  color: var(--bg);
+  background: var(--gold);
+  font-weight: 500;
+}
+
+.site-nav-tab--active:hover {
+  background: #d4b05a;
+  color: var(--bg);
+}
+
+/* ── Mobile ────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .site-nav        { padding: 0 16px; }
+  .site-nav-brand-sub { display: none; }
+  .site-nav-tab    { padding: 6px 12px; font-size: 11px; }
+}

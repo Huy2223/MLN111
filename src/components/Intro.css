@@ -38,6 +38,13 @@
   font-weight: 500;
 }
 
+/* ── Mobile ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .intro          { padding: 64px 20px 56px; }
+  .intro-headline { font-size: clamp(18px, 5.2vw, 24px); line-height: 1.6; }
+  .intro-body     { font-size: 13.5px; }
+}
+
 /* ── Ornament ────────────────────────────────────────── */
 .ornament {
   display: flex;

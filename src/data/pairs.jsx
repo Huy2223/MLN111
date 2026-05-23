@@ -65,11 +65,11 @@ export const PAIRS = [
       'Nhận thức là quá trình của linh hồn và tinh thần thế giới — không phải của con người trong thực tiễn vật chất.',
     figs: [
       {
-        ph: 'P', name: 'Plato', years: '427 – 347 TCN', src: '/images/plato.jpg',
+        ph: 'P', name: 'Plato', years: '427 – 347 TCN', src: '/images/plato.webp',
         tagline: 'Nhận thức là hồi tưởng — linh hồn nhớ lại những ý niệm đã tiếp xúc ở thế giới ý niệm trước khi nhập vào thể xác. Thế giới vật chất chỉ là bóng mờ.',
       },
       {
-        ph: 'H', name: 'Hegel', years: '1770 – 1831', src: '/images/hegel.jpg',
+        ph: 'H', name: 'Hegel', years: '1770 – 1831', src: '/images/hegel.JPG', objectPosition: 'center 52%',
         tagline: 'Tinh thần thế giới tự nhận thức chính mình qua lịch sử nhân loại. Con người là phương tiện để tuyệt đối thể nhận ra chính mình.',
       },
     ],
@@ -117,7 +117,7 @@ export const PAIRS = [
       'Hoài nghi về khả năng nhận thức — và cả sự tồn tại khách quan của sự vật. Nhưng không phải mọi hoài nghi đều vô nghĩa.',
     figs: [
       {
-        ph: 'D', name: 'Descartes', years: '1596 – 1650', src: '/images/descartes.jpg',
+        ph: 'D', name: 'Descartes', years: '1596 – 1650', src: '/images/descarte.webp',
         tagline: 'Hoài nghi có phương pháp — nghi ngờ mọi thứ để tìm điều chắc chắn tuyệt đối. "Cogito, ergo sum": tôi tư duy, vậy tôi tồn tại.',
       },
       {
@@ -172,7 +172,7 @@ export const PAIRS = [
       'Con người không thể nhận thức được bản chất thế giới — chỉ có thể biết hiện tượng bên ngoài. "Vật tự nó — Ding an sich" mãi nằm ngoài tầm với của nhận thức.',
     figs: [
       {
-        ph: 'K', name: 'Immanuel Kant', years: '1724 – 1804',
+        ph: 'K', name: 'Immanuel Kant', years: '1724 – 1804', src: '/images/Kant.webp',
         tagline: 'Nhận thức của chúng ta bị giới hạn bởi các hình thức tiên nghiệm của giác tính — do đó bản chất thực của thế giới, "vật tự nó", vĩnh viễn không thể biết được.',
       },
     ],
@@ -227,11 +227,11 @@ export const PAIRS = [
       'Công nhận thế giới khách quan có thể được nhận thức — nhưng hiểu nhận thức chỉ là sự phản ánh thụ động, sao chép giản đơn, chưa thấy vai trò của thực tiễn.',
     figs: [
       {
-        ph: 'F', name: 'L. Feuerbach', years: '1804 – 1872',
+        ph: 'F', name: 'L. Feuerbach', years: '1804 – 1872', src: '/images/Feuerbach.jpg',
         tagline: 'Vật chất, tự nhiên tồn tại khách quan và có thể nhận thức được — nhưng con người chỉ tiếp nhận thụ động từ tự nhiên, không cải tạo nó.',
       },
       {
-        ph: 'H', name: 'P. Holbach', years: '1723 – 1789',
+        ph: 'H', name: 'P. Holbach', years: '1723 – 1789', src: '/images/HolbachPaul.jpg',
         tagline: 'Tư tưởng là sản phẩm của bộ óc vật chất. Nhận thức là sự phản ánh thụ động các tác động cơ học của giới tự nhiên lên giác quan.',
       },
     ],

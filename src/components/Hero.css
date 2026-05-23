@@ -138,3 +138,19 @@
   0%, 100% { opacity: 0.25; transform: scaleY(1); }
   50%       { opacity: 1;    transform: scaleY(1.25); }
 }
+
+/* ── Mobile ─────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .hero-question {
+    padding: 11px 18px;
+    font-size: 10.5px;
+    gap: 10px;
+  }
+
+  .hero-sub {
+    font-size: clamp(13px, 3.5vw, 17px);
+    margin-bottom: 32px;
+  }
+
+  .scroll-hint { bottom: 24px; }
+}

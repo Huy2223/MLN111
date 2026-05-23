@@ -9,7 +9,7 @@
   --bg:        #07070e;
   --bg-card:   rgba(255,255,255,0.025);
   --text:      #e2d4ba;
-  --text-dim:  #7a6e5a;
+  --text-dim:  #978769;
   --gold:      #c9a84c;
   --gold-dark: #7a5f2a;
   --border:    rgba(201,168,76,0.12);
@@ -26,10 +26,8 @@ body {
   overflow-x: hidden;
 }
 
+/* prefers-reduced-motion: Framer Motion's useReducedMotion() handles JS animations.
+   Only suppress CSS-only decorative animations here — don't nuke everything. */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+  html { scroll-behavior: auto; }
 }

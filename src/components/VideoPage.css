@@ -1,0 +1,72 @@
+/* ── Video page ──────────────────────────────────────── */
+.video-page {
+  min-height: 100vh;
+  padding-top: 52px; /* nav height */
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ─────────────────────────────────────────── */
+.video-header {
+  padding: 56px 48px 40px;
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+
+.video-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.video-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 3.8vw, 40px);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+
+.video-sub {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+/* ── Video stage ─────────────────────────────────────── */
+.video-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px 64px;
+}
+
+.video-player {
+  width: 100%;
+  max-width: 960px;
+  aspect-ratio: 16 / 9;
+  background: #0a0a12;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  box-shadow:
+    0 0 0 1px rgba(201, 168, 76, 0.10),
+    0 32px 80px rgba(0, 0, 0, 0.70);
+  outline: none;
+  display: block;
+}
+
+/* Chrome/Safari custom controls color hint */
+.video-player::-webkit-media-controls-panel {
+  background: rgba(7, 7, 14, 0.90);
+}
+
+/* ── Mobile ──────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .video-header { padding: 40px 20px 28px; }
+  .video-stage  { padding: 28px 12px 48px; }
+}

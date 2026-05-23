@@ -23,52 +23,56 @@ const item = (i) => ({
     transition: { duration: 0.58, ease: EASE, delay: 0.18 + i * 0.09 } },
 })
 
-/* ── Photo stack ───────────────────────────────── */
-function PhotoStack({ pair }) {
+/* ── Art slot (single fig without photo) ───────── */
+function ArtSlot({ fig, accent, bg }) {
   return (
-    <div
-      className="pr-photo-stack"
-      style={{ gridTemplateRows: `repeat(${pair.figs.length}, 1fr)` }}
-    >
-      {pair.figs.map((fig) => (
-        <motion.div
-          key={fig.name}
-          className="pr-photo-slot"
-          whileHover={{ scale: 1.04 }}
-          transition={{ duration: 0.55, ease: EASE }}
-          style={{ originX: 0.5, originY: 0.5 }}
-        >
-          <img src={fig.src} alt={fig.name} draggable="false" />
-          <div className="pr-photo-plate">
-            <span className="pr-photo-plate-name">{fig.name}</span>
-            <span className="pr-photo-plate-years">{fig.years}</span>
-          </div>
-        </motion.div>
-      ))}
+    <div className="pr-art-slot" style={{ background: bg }}>
+      <div className="pr-art-portrait" style={{ borderColor: accent, color: accent }}>
+        <span className="pr-art-initial">{fig.ph}</span>
+        <span className="pr-art-label">{fig.name}</span>
+        <span className="pr-art-years">{fig.years}</span>
+      </div>
     </div>
   )
 }
 
-/* ── Art stack (no real photos) ────────────────── */
-function ArtStack({ pair }) {
+/* ── Unified visual stack (photo or art per-fig) ── */
+function VisStack({ pair }) {
   const { accent, bg } = VIS[pair.id]
+  const hasAny = pair.figs.some((f) => f.src)
+
   return (
     <div
-      className="pr-art-stack"
+      className="pr-photo-stack"
       style={{
-        background: `${bg}, #07070e`,
         gridTemplateRows: `repeat(${pair.figs.length}, 1fr)`,
+        background: hasAny ? 'var(--border)' : `${bg}, #07070e`,
       }}
     >
-      {pair.figs.map((fig) => (
-        <div key={fig.name} className="pr-art-slot">
-          <div className="pr-art-portrait" style={{ borderColor: accent, color: accent }}>
-            <span className="pr-art-initial">{fig.ph}</span>
-            <span className="pr-art-label">{fig.name}</span>
-            <span className="pr-art-years">{fig.years}</span>
-          </div>
-        </div>
-      ))}
+      {pair.figs.map((fig) =>
+        fig.src ? (
+          <motion.div
+            key={fig.name}
+            className="pr-photo-slot"
+            whileHover={{ scale: 1.04 }}
+            transition={{ duration: 0.55, ease: EASE }}
+            style={{ originX: 0.5, originY: 0.5 }}
+          >
+            <img
+              src={fig.src}
+              alt={fig.name}
+              draggable="false"
+              style={{ objectPosition: fig.objectPosition || 'center 20%' }}
+            />
+            <div className="pr-photo-plate">
+              <span className="pr-photo-plate-name">{fig.name}</span>
+              <span className="pr-photo-plate-years">{fig.years}</span>
+            </div>
+          </motion.div>
+        ) : (
+          <ArtSlot key={fig.name} fig={fig} accent={accent} bg={`${bg}, #07070e`} />
+        )
+      )}
     </div>
   )
 }
@@ -86,8 +90,6 @@ function PairRow({ pair, index }) {
       transition: { duration: 0.78, ease: EASE } },
   }
 
-  const hasPhotos = pair.figs.every((f) => f.src)
-
   return (
     <motion.article
       className={`pr ${isEven ? 'pr--even' : 'pr--odd'}`}
@@ -100,7 +102,7 @@ function PairRow({ pair, index }) {
         className={`pr-vis ${isEven ? 'pr-vis--right' : 'pr-vis--left'}`}
         variants={visualV}
       >
-        {hasPhotos ? <PhotoStack pair={pair} /> : <ArtStack pair={pair} />}
+        <VisStack pair={pair} />
         <div className={`pr-vis-fade ${isEven ? 'pr-vis-fade--left' : 'pr-vis-fade--right'}`} />
       </motion.div>
 

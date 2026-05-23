@@ -1,12 +1,47 @@
 /* ── Footer ─────────────────────────────────────────── */
 .site-footer {
   text-align: center;
-  padding: 56px 24px;
+  padding: 72px 24px 80px;
   border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
 }
 
-.site-footer p {
+/* Ornament — mirrors Intro ornament */
+.site-footer-ornament {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 240px;
+  margin-bottom: 8px;
+}
+
+.site-footer-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.site-footer-gem {
+  width: 5px;
+  height: 5px;
+  background: var(--gold-dark);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+.site-footer-label {
   font-size: 11px;
   color: var(--text-dim);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.site-footer-sub {
+  font-size: 11px;
+  color: var(--gold-dark);
   letter-spacing: 0.12em;
+  opacity: 0.7;
 }
