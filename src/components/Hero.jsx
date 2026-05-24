@@ -34,7 +34,7 @@ export default function Hero() {
           Lý Luận
           <em>Nhận Thức</em>
         </h1>
-        <p className="hero-sub">Lý luận nhận thức của chủ nghĩa duy vật biện chứng</p>
+        <p className="hero-sub">Quan niệm về nhận thức trong lịch sử triết học</p>
         <div className="hero-question">Con người có thể biết thế giới không?</div>
       </div>
 
