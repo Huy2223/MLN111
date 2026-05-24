@@ -1,8 +1,6 @@
 import './VideoPage.css'
 
-/* Đặt file video vào public/videos/demo.mp4
-   rồi cập nhật VIDEO_SRC bên dưới */
-const VIDEO_SRC = '/videos/demo.mp4'
+const VIDEO_ID    = 'aEjxFdbjk_c'
 const VIDEO_TITLE = 'Video thuyết trình — Lý Luận Nhận Thức'
 const VIDEO_SUB   = 'FPT University · MLN111 · Summer 2026'
 
@@ -16,15 +14,13 @@ export default function VideoPage() {
       </header>
 
       <div className="video-stage">
-        <video
+        <iframe
           className="video-player"
-          controls
-          preload="metadata"
-          poster=""
-        >
-          <source src={VIDEO_SRC} type="video/mp4" />
-          Trình duyệt của bạn không hỗ trợ phát video.
-        </video>
+          src={`https://www.youtube.com/embed/${VIDEO_ID}?rel=0&modestbranding=1`}
+          title={VIDEO_TITLE}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        />
       </div>
     </main>
   )
