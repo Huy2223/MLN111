@@ -4,32 +4,6 @@ import './AIUsage.css'
 
 const EASE = [0.23, 1, 0.32, 1]
 
-// Custom High-Quality SVG Icons for each tool
-const ClaudeIcon = ({ className }) => (
-  <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.5">
-    <path d="M12 2L15 8.5L22 9.5L17 14.5L18.5 21.5L12 18L5.5 21.5L7 14.5L2 9.5L9 8.5L12 2Z" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M12 7.5L13.5 11L17.5 11.5L14.5 14.5L15.3 18.5L12 16.5L8.7 18.5L9.5 14.5L6.5 11.5L10.5 11L12 7.5Z" fill="currentColor" opacity="0.3" />
-    <circle cx="12" cy="13" r="2" fill="currentColor" />
-  </svg>
-)
-
-const GeminiIcon = ({ className }) => (
-  <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.5">
-    <path d="M12 2C12 2 12.5 7.5 18 12C12.5 16.5 12 22 12 22C12 22 11.5 16.5 6 12C11.5 7.5 12 2 12 2Z" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M12 6C12 6 12.2 9.5 15.5 12C12.2 14.5 12 18 12 18C12 18 11.8 14.5 8.5 12C11.8 9.5 12 6 12 6Z" fill="currentColor" opacity="0.3" />
-    <circle cx="12" cy="12" r="1" fill="currentColor" />
-  </svg>
-)
-
-const NotebookLMIcon = ({ className }) => (
-  <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.5">
-    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M9 6h6M9 10h6M9 14h4" strokeLinecap="round" />
-    <circle cx="17" cy="14" r="2" stroke="currentColor" strokeWidth="1" fill="currentColor" opacity="0.2" />
-  </svg>
-)
-
 const TOOLS = [
   {
     id: 'claude',
@@ -37,7 +11,7 @@ const TOOLS = [
     name: 'Claude',
     by: 'Anthropic',
     accent: '#a060d0',
-    icon: ClaudeIcon,
+    iconSrc: '/images/claude.jpg',
     purpose: 'Lập trình toàn bộ giao diện web landing page cho dự án MLN111.',
     prompt: 'Thiết kế component React + Framer Motion, animation scroll-driven 3D, layout xen kẽ triết gia, responsive mobile.',
     result: 'Code hoàn chỉnh: Hero, Intro, ScrollPairs, Scene3D (4 variants), NavBar, AIUsage, VideoPage với CSS và animation.',
@@ -50,7 +24,7 @@ const TOOLS = [
     name: 'Gemini',
     by: 'Google',
     accent: '#4285f4',
-    icon: GeminiIcon,
+    iconSrc: '/images/gemini.jpg',
     purpose: 'Kiểm chứng nội dung triết học và xác minh nguồn gốc các trích dẫn trong trang.',
     prompt: 'Xác minh trích dẫn Marx, Lenin, Hegel, Kant trong giáo trình MLN111 Phần III.',
     result: 'Xác nhận và hiệu chỉnh trích dẫn, cung cấp ngữ cảnh bổ sung về từng trường phái.',
@@ -63,7 +37,7 @@ const TOOLS = [
     name: 'NotebookLM',
     by: 'Google',
     accent: '#34a853',
-    icon: NotebookLMIcon,
+    iconSrc: '/images/notebooklm.png',
     purpose: 'Tổng hợp và tra cứu tài liệu học tập từ giáo trình MLN111 Phần III.',
     prompt: 'Upload giáo trình, truy vấn: lý luận nhận thức, thực tiễn, chân lý tương đối/tuyệt đối.',
     result: 'Bản tóm tắt có trích dẫn kèm số trang cụ thể từ giáo trình.',
@@ -141,7 +115,6 @@ export default function AIUsage() {
             
             <div className="aic-selector-list">
               {TOOLS.map((tool) => {
-                const ToolIconComponent = tool.icon
                 const isActive = tool.id === activeToolId
                 return (
                   <button
@@ -153,7 +126,7 @@ export default function AIUsage() {
                     <div className="aic-sel-card-glow" />
                     <div className="aic-sel-card-inner">
                       <div className="aic-sel-card-logo">
-                        <ToolIconComponent className="aic-sel-svg" />
+                        <img src={tool.iconSrc} alt={tool.name} className="aic-sel-img" />
                       </div>
                       <div className="aic-sel-card-meta">
                         <div className="aic-sel-card-name">{tool.name}</div>

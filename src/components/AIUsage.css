@@ -219,6 +219,13 @@
   height: 20px;
 }
 
+.aic-sel-img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
 .aic-sel-card-meta {
   flex-grow: 1;
 }

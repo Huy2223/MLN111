@@ -8,3 +8,5 @@ dist
 
 # Dev tool daemon (VS Code extension / local service)
 .vexp
+
+.vercel
